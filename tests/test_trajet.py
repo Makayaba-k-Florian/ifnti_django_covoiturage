@@ -1,5 +1,4 @@
 from covoiturage.models import Trajet
-from covoiturage.models import Reservation
 
 import pytest
 
@@ -42,7 +41,7 @@ def test_affichage_trajet(db):
         ville_arrivee = "Lomé",
         heure_depart = "19:00",
         date_depart = "2000-02-12",
-        places = 2 ,
+        places = 5 ,
         prix_par_place = 10000
     )  
    
@@ -50,3 +49,4 @@ def test_affichage_trajet(db):
 
 
 
+     
