@@ -1,3 +1,4 @@
+from django.contrib.auth import validators
 from django.db import models  # noqa: F401
 
 class Trajet(models.Model):
@@ -12,3 +13,9 @@ class Trajet(models.Model):
         verbose_name = "trajet"
         verbose_name_plural = 'trajets'
 
+        constraints = [
+            models.CheckConstraint(
+                condition=models.Q(places__gte=1),
+                name='places_greater_than_zero'
+            )
+        ]
