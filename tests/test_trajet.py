@@ -1,4 +1,6 @@
 from covoiturage.models import Trajet
+from covoiturage.models import Reservation
+
 import pytest
 
 def test_creation_d_un_trajet(db):
@@ -40,10 +42,12 @@ def test_affichage_trajet(db):
         ville_arrivee = "Lomé",
         heure_depart = "19:00",
         date_depart = "2000-02-12",
-        places = 0 ,
+        places = 2 ,
         prix_par_place = 10000
     )  
    
    assert str(trajet) == "Sokodé -> Lomé 2000-02-12 à 19:00"     
-        
-      
+
+
+
+)      
