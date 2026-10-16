@@ -8,6 +8,7 @@ class Trajet(models.Model):
     heure_depart = models.TimeField()
     places = models.PositiveIntegerField() 
     prix_par_place = models.IntegerField()
+    date_depart = models.DateField(null=True)
 
     class Meta:
         verbose_name = "trajet"
@@ -19,3 +20,18 @@ class Trajet(models.Model):
                 name='places_greater_than_zero'
             )
         ]
+
+    def __str__(self):
+        return f"{self.ville_depart} -> {self.ville_arrivee} {self.date_depart} à {self.heure_depart}"
+
+
+class Reservation(models.Model):
+        trajet = models.ForeignKey(
+             Trajet,on_delete=models.PROTECT,related_name="reservations"
+        )
+        nom_passager = models.CharField(max_length=255)
+        nombre_place = models.PositiveIntegerField()
+
+        class Meta:
+            verbose_name = "reservation"
+            verbose_name_plural = 'reservations'
