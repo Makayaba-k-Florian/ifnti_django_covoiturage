@@ -35,5 +35,9 @@ class Reservation(models.Model):
         class Meta:
             verbose_name = "reservation"
             verbose_name_plural = 'reservations'
+            constraints = [
+            models.UniqueConstraint(fields=['trajet', 'nom_passager'], name='unique_passager_par_trajet')
+        ]
             
-            
+        def __str__(self):
+            return f"{self.nom_passager} : {self.nombre_place} places"
