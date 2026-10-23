@@ -120,4 +120,14 @@ def test_montrer_que_les_trajet_a_venir(db, client ,trajet_1,trajet_futur):
     assert trajet_1.date not in response.text
     assert trajet_futur.date in response.text
     
+def test_les_trajet_sont_ordonner(db, client ,trajet_1,trajet_futur):
+    response = client.get("/trajet/index")   
+    
+    date1_idx = response.find(trajet_1.date)
+    date2_idx = response.find(trajet_futur.date)
+    
+    assert date1_idx < date2_idx 
+    
+    
+    
     
