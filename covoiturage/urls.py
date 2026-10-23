@@ -4,4 +4,7 @@ from . import views  # noqa: F401
 
 app_name = "covoiturage"
 
-urlpatterns = []
+urlpatterns = [
+    path("trajet/index",view= views.liste_trajets,
+        name="list_trajets")
+]

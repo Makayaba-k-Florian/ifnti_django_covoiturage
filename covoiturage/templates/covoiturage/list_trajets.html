@@ -1,0 +1,34 @@
+{% extends "covoiturage/base.html" %} {% block contenu %}
+<h1>List trajets</h1>
+
+<table border="2">
+  <thead>
+    <tr>
+      <th>conducteur</th>
+      <th>ville arrivee</th>
+      <th>heure depart</th>
+      <th>places</th>
+      <th>prix par place</th>
+      <th>ville depart</th>
+      <th>date depart</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for trajet in trajets %}
+    <tr>
+      <td>{{trajet.conducteur}}</td>
+      <td>{{trajet.ville_arrivee}}</td>
+      <td>{{trajet.heure_depart}}</td>
+      <td>{{trajet.places}}</td>
+      <td>{{trajet.prix_par_place}}</td>
+      <td>{{trajet.ville_depart}}</td>
+      <td>{{trajet.date_depart|date:"Y-m-d"}}</td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="4">Aucun trajet enregistrée pour le moment.</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock contenu %}

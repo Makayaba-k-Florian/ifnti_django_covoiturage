@@ -96,10 +96,10 @@ def test_passager_peux_pas_avoir_2_trajet(db,trajet_1):
 def test_page_liste_trajet_sa_affiche_bien(client,db,trajet_1):
     response = client.get("/trajet/index")
     assert "Abdel" in response.text     
-    assert "Sokode" in response.text  
+    assert "Sokodé" in response.text  
     assert "9:00" in response.text  
     assert "2000-02-12" in response.text  
-    assert "Lome" in response.text  
+    assert "Lomé" in response.text  
         
         
         
