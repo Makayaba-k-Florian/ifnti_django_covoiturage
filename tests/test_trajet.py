@@ -3,16 +3,23 @@ from covoiturage.models import Reservation
 
 import pytest
 
-def test_creation_d_un_trajet(db):
+@pytest.fixture
+def trajet_1(db):
     trajet = Trajet.objects.create(
         conducteur = "Abdel",
-        ville_depart = "Sokode",
-        ville_arrivee = "Lome",
+        ville_depart = "Sokodé",
+        ville_arrivee = "Lomé",
         heure_depart = "19:00",
         date_depart = "2000-02-12",
-        places = 4 ,
+        places = 5 ,
         prix_par_place = 10000
-    )
+    ) 
+    return trajet 
+
+
+
+def test_creation_d_un_trajet(db,trajet_1):
+    trajet = trajet_1
     
     assert trajet.conducteur
     assert trajet.ville_arrivee
@@ -35,31 +42,15 @@ def test_trajet_a_au_moins_une_place(db):
             prix_par_place = 10000
     )
         
-def test_affichage_trajet(db):
-   trajet = Trajet.objects.create(
-        conducteur = "Abdel",
-        ville_depart = "Sokodé",
-        ville_arrivee = "Lomé",
-        heure_depart = "19:00",
-        date_depart = "2000-02-12",
-        places = 5 ,
-        prix_par_place = 10000
-    )  
+def test_affichage_trajet(db,trajet_1):
+   trajet = trajet_1 
    
    assert str(trajet) == "Sokodé -> Lomé 2000-02-12 à 19:00"     
 
 
 
-def test_creation_d_une_reservation(db):
-    trajet = Trajet.objects.create(
-            conducteur = "Abdel",
-            ville_depart = "Sokodé",
-            ville_arrivee = "Lomé",
-            heure_depart = "19:00",
-            date_depart = "2000-02-12",
-            places = 5 ,
-            prix_par_place = 10000
-    )
+def test_creation_d_une_reservation(db,trajet_1):
+    trajet = trajet_1
      
     reservation = Reservation.objects.create(
         trajet = trajet,
@@ -72,16 +63,8 @@ def test_creation_d_une_reservation(db):
     assert reservation.nombre_place 
     
     
-def test_affichage_trajet(db):
-    trajet = Trajet.objects.create(
-        conducteur = "Abdel",
-        ville_depart = "Sokodé",
-        ville_arrivee = "Lomé",
-        heure_depart = "19:00",
-        date_depart = "2000-02-12",
-        places = 5 ,
-        prix_par_place = 10000
-)
+def test_affichage_trajet(db,trajet_1):
+    trajet = trajet_1
         
     reservation = Reservation.objects.create(
         trajet = trajet,
@@ -93,16 +76,8 @@ def test_affichage_trajet(db):
     
     
     
-def test_passager_peux_pas_avoir_2_trajet(db):
-    trajet = Trajet.objects.create(
-        conducteur = "Abdel",
-        ville_depart = "Sokodé",
-        ville_arrivee = "Lomé",
-        heure_depart = "19:00",
-        date_depart = "2000-02-12",
-        places = 5 ,
-        prix_par_place = 10000
-    )
+def test_passager_peux_pas_avoir_2_trajet(db,trajet_1):
+    trajet = trajet_1
             
     reservation = Reservation.objects.create(
         trajet = trajet,
@@ -118,7 +93,13 @@ def test_passager_peux_pas_avoir_2_trajet(db):
         )
         
         
-        
+def test_page_liste_trajet_sa_affiche_bien(client,db,trajet_1):
+    response = client.get("/trajet/index")
+    assert "Abdel" in response.text     
+    assert "Sokode" in response.text  
+    assert "9:00" in response.text  
+    assert "2000-02-12" in response.text  
+    assert "Lome" in response.text  
         
         
         
