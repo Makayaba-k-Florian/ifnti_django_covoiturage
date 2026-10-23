@@ -117,8 +117,8 @@ def test_page_liste_trajet_sa_affiche_bien(client,db,trajet_1):
         
 def test_montrer_que_les_trajet_a_venir(db, client ,trajet_1,trajet_futur):
     response = client.get("/trajet/index")    
-    assert trajet_1.date not in response.text
-    assert trajet_futur.date in response.text
+    assert trajet_1.date_depart not in response.text
+    assert trajet_futur.date_depart in response.text
     
 def test_les_trajet_sont_ordonner(db, client ,trajet_1,trajet_futur):
     response = client.get("/trajet/index")   
