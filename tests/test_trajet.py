@@ -93,7 +93,7 @@ def test_affichage_trajet(db):
     
     
     
-def test_passager_peux_pas_avoir_trajet(db):
+def test_passager_peux_pas_avoir_2_trajet(db):
     trajet = Trajet.objects.create(
         conducteur = "Abdel",
         ville_depart = "Sokodé",
