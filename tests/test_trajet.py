@@ -72,7 +72,27 @@ def test_creation_d_une_reservation(db):
     assert reservation.nombre_place 
     
     
+def test_affichage_trajet(db):
+    trajet = Trajet.objects.create(
+        conducteur = "Abdel",
+        ville_depart = "Sokodé",
+        ville_arrivee = "Lomé",
+        heure_depart = "19:00",
+        date_depart = "2000-02-12",
+        places = 5 ,
+        prix_par_place = 10000
+)
+        
+    reservation = Reservation.objects.create(
+        trajet = trajet,
+        nom_passager = "Abouraima",
+        nombre_place = 5,
+    )
+   
+    assert str(reservation) == "Abouraima : 5 places"     
     
     
     
+
+
     
