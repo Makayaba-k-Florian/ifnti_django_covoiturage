@@ -110,5 +110,15 @@ def test_passager_peux_pas_avoir_trajet(db):
         nombre_place = 5,
     )
     
-
-    
+    with pytest.raises(Exception):
+        reservation = Reservation.objects.create(
+            trajet = trajet,
+            nom_passager = "Abouraima",
+            nombre_place = 5,
+        )
+        
+        
+        
+        
+        
+        
