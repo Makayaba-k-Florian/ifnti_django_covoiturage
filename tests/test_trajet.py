@@ -1,5 +1,6 @@
 from covoiturage.models import Trajet
 from covoiturage.models import Reservation
+import datetime
 
 import pytest
 
@@ -102,4 +103,8 @@ def test_page_liste_trajet_sa_affiche_bien(client,db,trajet_1):
     assert "Lomé" in response.text  
         
         
-        
+def test_montrer_que_les_trajet_a_venir(db, client ,trajet_1):
+    response = client.get("/trajet/index")    
+    assert trajet_1.date < datetime.now()
+    
+    
