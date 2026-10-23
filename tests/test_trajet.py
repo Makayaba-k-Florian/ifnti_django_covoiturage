@@ -106,13 +106,13 @@ def test_passager_peux_pas_avoir_2_trajet(db,trajet_1):
         )
         
         
-def test_page_liste_trajet_sa_affiche_bien(client,db,trajet_1):
+def test_page_liste_trajet_sa_affiche_bien(client,db,trajet_futur):
     response = client.get("/trajet/index")
-    assert "Abdel" in response.text     
-    assert "Sokodé" in response.text  
-    assert "9:00" in response.text  
-    assert "2000-02-12" in response.text  
-    assert "Lomé" in response.text  
+    assert trajet_futur.conducteur in response.text     
+    assert trajet_futur.ville_depart in response.text  
+    assert trajet_futur.ville_arrivee in response.text  
+    assert trajet_futur.heure_depart in response.text  
+    assert trajet_futur.ville_arrivee in response.text  
         
         
 def test_montrer_que_les_trajet_a_venir(db, client ,trajet_1,trajet_futur):
@@ -123,8 +123,8 @@ def test_montrer_que_les_trajet_a_venir(db, client ,trajet_1,trajet_futur):
 def test_les_trajet_sont_ordonner(db, client ,trajet_1,trajet_futur):
     response = client.get("/trajet/index")   
     
-    date1_idx = response.find(trajet_1.date)
-    date2_idx = response.find(trajet_futur.date)
+    date1_idx = response.find(trajet_1.date_depart)
+    date2_idx = response.find(trajet_futur.date_depart)
     
     assert date1_idx < date2_idx 
     
