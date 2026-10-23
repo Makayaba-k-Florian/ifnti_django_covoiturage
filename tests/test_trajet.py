@@ -17,6 +17,18 @@ def trajet_1(db):
     ) 
     return trajet 
 
+@pytest.fixture
+def trajet_futur(db):
+    trajet = Trajet.objects.create(
+        conducteur = "Abdelaa",
+        ville_depart = "Sokodé",
+        ville_arrivee = "Lomé",
+        heure_depart = "19:00",
+        date_depart = "2027-02-12",
+        places = 5 ,
+        prix_par_place = 10000
+    ) 
+    return trajet 
 
 
 def test_creation_d_un_trajet(db,trajet_1):
@@ -103,8 +115,9 @@ def test_page_liste_trajet_sa_affiche_bien(client,db,trajet_1):
     assert "Lomé" in response.text  
         
         
-def test_montrer_que_les_trajet_a_venir(db, client ,trajet_1):
+def test_montrer_que_les_trajet_a_venir(db, client ,trajet_1,trajet_futur):
     response = client.get("/trajet/index")    
-    assert trajet_1.date < datetime.now()
+    assert trajet_1.date not in response.text
+    assert trajet_futur.date in response.text
     
     
